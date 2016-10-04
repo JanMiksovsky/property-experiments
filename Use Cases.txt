@@ -1,0 +1,91 @@
+ArrowSelection
+  .canSelectNext: update DOM
+  .canSelectPrevious: update DOM
+AutosizeTextarea
+  .minimumRows: update DOM
+  .value: update DOM
+ClickSelection
+  .selectedIndex: stub
+ContentFirstChildTarget
+  .target: remember value
+DirectionSelection
+  .selectedFraction: stub
+  .travelFraction: remember value
+DistributedChildrenAsContent
+  .content: stub
+FractionalSelection
+  .selectedFraction: remember value, raise event
+Generic
+  .generic: parse/remember value, reflect to attribute
+KeyboardDirection
+  .navigationAxis: remember value
+KeyboardPagedSelection:
+  .scrollTarget: stub
+OpenClose
+  .closed: remember value, update DOM, raise event
+SelectionAnimation:
+  .selectionAnimationDuration: remember value
+  .selectionAnimationEffect: remember value, update selectionAnimationKeyframes
+  .selectionAnimationKeyframes: remember value, update DOM, render animation
+  .selectionWraps: render animation
+  .showTransition: remember value
+SelectionAriaActive
+  .selectedItem: update DOM
+SelectionInView
+  .selectedItem: update DOM
+  .scrollTarget: stub
+SingleSelection
+  .canSelectNext: remember value
+  .canSelectPrevious: remember value
+  .selectedIndex: update selectedItem, raise event
+  .selectedItem: update selectedIndex/canSelectNext/canSelectPrevious, raise event
+  .selectionRequired: remember value, update selectedIndex
+  .selectionWraps: remember value, update canSelectNext/canSelectPrevious
+SwipeDirection:
+  .showTransition: stub
+  .travelFraction: remember value
+TargetInCollective:
+  .target: update collective
+TargetSelection:
+  .selectedFraction: delegate to DOM
+  .selectedItem: delegate to DOM
+  .selectionWraps: delegate to DOM
+  .target: update items
+TimerSelection
+  .playing: parse/remember value, play/pause
+  .selectedItem: restart timer
+  .selectionTimerDuration: parse/remember value
+TrackpadDirection
+  .showTransition: stub
+  .travelFraction: stub
+CurrentAnchor
+  .areaLink: parse/remember value, update DOM
+  .current: update DOM, raise event
+  .href: delegate to DOM
+FadeOverflow
+  .fadeColor: remember value, update DOM
+  .showFade: delegate to DOM
+ListBox
+  .value: remember value, update selectedIndex, raise event
+PageDots
+  .selectedFraction: delegate to DOM, update DOM, raise event
+  .target: update target's selectedFraction
+PlayControls
+  .playing: update target's playing, update DOM
+SlidingCarousel
+  .selectedFraction: delegate to DOM, raise event
+  .selectedIndex: delegate to DOM
+  .selectedItem: delegate to DOM
+  .showTransition: delegate to DOM
+SlidingViewport
+  .selectedFraction: update DOM
+  .selectedIndex: update selectedItem
+  .selectedItem: remember value, update DOM
+  .showTransition: reflect to DOM, update DOM
+TabStrip
+  .tabPosition: remember value, update DOM
+Tabs
+  .generic: delegate to DOM
+  .tabPosition: delegate to DOM
+WrappedStandardElement
+  .ariaLabel: delegate to DOM

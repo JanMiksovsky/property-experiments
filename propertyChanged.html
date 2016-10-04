@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>With separate propertyChanged handler</title>
+
+  <script>
+    let propertySymbol = Symbol();
+
+    let MixinA = (base) =>
+      class MixinA extends base {
+        get property() {
+          return this[propertySymbol];
+        }
+        set property(value) {
+          if ('property' in base.prototype) { super.property = value; }
+          this[propertySymbol] = value;
+          if (this.propertyChanged) { this.propertyChanged(value); }
+        }
+      };
+
+    let MixinB = (base) =>
+      class MixinB extends base {
+        propertyChanged(value) {
+          if (super.propertyChanged) { super.propertyChanged(value); }
+          console.log(this.property);
+        }
+      };
+
+
+    let AB = MixinB(MixinA(Object));
+    let ab = new AB();
+    ab.property = 'Hello'; // logs "Hello"
+
+    let BA = MixinA(MixinB(Object));
+    let ba = new BA();
+    ba.property = 'Hello'; // logs "Hello"
+  </script>
+
+</head>
+
+<body>
+</body>
+
+</html>

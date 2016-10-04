@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Use microtask to defer property effects</title>
+
+  <script>
+    let propertySymbol = Symbol();
+
+    let MixinA = (base) =>
+      class MixinA extends base {
+        get property() {
+          return this[propertySymbol];
+        }
+        set property(value) {
+          if ('property' in base.prototype) { super.property = value; }
+          this[propertySymbol] = value;
+        }
+      };
+
+    let MixinB = (base) =>
+      class MixinB extends base {
+        get property() {
+          if ('property' in base.prototype) { return super.property; }
+        }
+        set property(value) {
+          if ('property' in base.prototype) { super.property = value; }
+          microtask(() => console.log(this.property));
+        }
+      };
+
+    function microtask(fn) {
+      Promise.resolve().then(fn);
+    }
+
+    console.log('start');
+
+    let AB = MixinB(MixinA(Object));
+    let ab = new AB();
+    ab.property = 'Hello'; // logs "Hello" *after* "end"
+
+    let BA = MixinA(MixinB(Object));
+    let ba = new BA();
+    ba.property = 'Hello'; // logs "Hello" *after* "end"
+
+    console.log('end');
+  </script>
+
+</head>
+
+<body>
+</body>
+
+</html>

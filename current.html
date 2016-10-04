@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Current mixin convention</title>
+
+  <script>
+    let propertySymbol = Symbol();
+
+    let MixinA = (base) =>
+      class MixinA extends base {
+        get property() {
+          return this[propertySymbol];
+        }
+        set property(value) {
+          if ('property' in base.prototype) { super.property = value; }
+          this[propertySymbol] = value;
+        }
+      };
+
+    let MixinB = (base) =>
+      class MixinB extends base {
+        get property() {
+          if ('property' in base.prototype) { return super.property; }
+        }
+        set property(value) {
+          if ('property' in base.prototype) { super.property = value; }
+          console.log(this.property);
+        }
+      };
+
+
+    let AB = MixinB(MixinA(Object));
+    let ab = new AB();
+    ab.property = 'Hello'; // logs "Hello"
+
+    let BA = MixinA(MixinB(Object));
+    let ba = new BA();
+    ba.property = 'Hello'; // logs "undefined"
+  </script>
+
+</head>
+
+<body>
+</body>
+
+</html>
