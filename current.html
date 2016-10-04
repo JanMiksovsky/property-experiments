@@ -22,7 +22,7 @@
     let MixinB = (base) =>
       class MixinB extends base {
         get property() {
-          if ('property' in base.prototype) { return super.property; }
+          return super.property;
         }
         set property(value) {
           if ('property' in base.prototype) { super.property = value; }
